@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Guild Tournament Design System - Dark Fantasy Theme */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+@layer base {
+  :root {
+    /* Dark Fantasy Color Palette */
+    --background: 240 8% 8%;
+    --foreground: 45 100% 85%;
+    
+    /* Guild Tournament Colors */
+    --primary: 45 100% 55%;
+    --primary-foreground: 240 8% 8%;
+    --primary-glow: 45 100% 65%;
+    
+    --secondary: 260 15% 15%;
+    --secondary-foreground: 45 100% 85%;
+    
+    --accent: 260 25% 20%;
+    --accent-foreground: 45 100% 85%;
+    
+    --muted: 240 8% 12%;
+    --muted-foreground: 45 20% 65%;
+    
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 45 100% 85%;
+    
+    /* Tournament Specific Colors */
+    --guild-gold: 45 100% 55%;
+    --guild-ember: 15 100% 60%;
+    --guild-purple: 260 60% 45%;
+    --guild-shadow: 240 15% 10%;
+    --guild-stone: 240 8% 20%;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(45 100% 55%), hsl(15 100% 60%));
+    --gradient-hero: linear-gradient(180deg, hsl(240 8% 8%), hsl(260 15% 12%));
+    --gradient-tournament: linear-gradient(45deg, hsl(260 25% 15%), hsl(240 8% 12%));
+    --gradient-torch: linear-gradient(0deg, hsl(15 100% 50%), hsl(45 100% 60%));
+    
+    /* Effects */
+    --shadow-glow: 0 0 30px hsl(45 100% 55% / 0.3);
+    --shadow-ember: 0 0 20px hsl(15 100% 60% / 0.4);
+    --shadow-tournament: 0 10px 40px hsl(240 15% 5% / 0.5);
+    
+    /* Animation Variables */
+    --flicker-duration: 2s;
+    --torch-flicker: flicker var(--flicker-duration) ease-in-out infinite alternate;
+    
+    /* Card and UI Elements */
+    --card: 260 15% 15%;
+    --card-foreground: 45 100% 85%;
+
+    --popover: 260 15% 15%;
+    --popover-foreground: 45 100% 85%;
+
+    --border: 260 25% 25%;
+    --input: 260 15% 15%;
+    --ring: 45 100% 55%;
+
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-inter;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-cinzel;
+  }
+}
+
+@layer components {
+  /* Tournament Animations */
+  @keyframes flicker {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.05); }
+  }
+  
+  @keyframes glow-pulse {
+    0%, 100% { box-shadow: var(--shadow-glow); }
+    50% { box-shadow: 0 0 40px hsl(45 100% 55% / 0.5); }
+  }
+  
+  @keyframes ember-dance {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    25% { transform: translateY(-5px) rotate(2deg); opacity: 0.9; }
+    50% { transform: translateY(-3px) rotate(-1deg); opacity: 0.95; }
+    75% { transform: translateY(-7px) rotate(1deg); opacity: 0.85; }
+    100% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  }
+  
+  /* Component Styles */
+  .torch-flame {
+    animation: flicker 2s ease-in-out infinite alternate,
+               ember-dance 3s ease-in-out infinite;
+  }
+  
+  .guild-glow {
+    animation: glow-pulse 3s ease-in-out infinite;
+  }
+  
+  .hero-gradient {
+    background: var(--gradient-hero);
+  }
+  
+  .tournament-gradient {
+    background: var(--gradient-tournament);
+  }
+  
+  .primary-gradient {
+    background: var(--gradient-primary);
+  }
+}
