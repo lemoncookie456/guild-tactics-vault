@@ -11,6 +11,11 @@ export function useGuildContract() {
   const createGuild = async (name: string, description: string, targetAmount: bigint) => {
     if (!address) throw new Error('Wallet not connected');
     
+    // Check if contract is deployed
+    if (CONTRACT_ADDRESSES.GuildTacticsVault === '0x0000000000000000000000000000000000000000') {
+      throw new Error('Contract not yet deployed. Please deploy the contract first.');
+    }
+    
     setIsLoading(true);
     try {
       const hash = await writeContract({
@@ -128,13 +133,15 @@ export function useGuildContract() {
 }
 
 export function useGuildData(guildId?: bigint) {
+  const isContractDeployed = CONTRACT_ADDRESSES.GuildTacticsVault !== '0x0000000000000000000000000000000000000000';
+  
   const { data: guildInfo, isLoading: isLoadingGuild } = useReadContract({
     address: CONTRACT_ADDRESSES.GuildTacticsVault as `0x${string}`,
     abi: GUILD_TACTICS_VAULT_ABI,
     functionName: 'getGuildInfo',
     args: guildId ? [guildId] : undefined,
     query: {
-      enabled: !!guildId,
+      enabled: !!guildId && isContractDeployed,
     },
   });
 
@@ -144,7 +151,7 @@ export function useGuildData(guildId?: bigint) {
     functionName: 'getGuildMembers',
     args: guildId ? [guildId] : undefined,
     query: {
-      enabled: !!guildId,
+      enabled: !!guildId && isContractDeployed,
     },
   });
 
