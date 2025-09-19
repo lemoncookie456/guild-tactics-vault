@@ -8,9 +8,28 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Shield, Users, Crown, Star, Zap, Swords, Eye } from "lucide-react";
+import { Shield, Users, Crown, Star, Zap, Swords, Eye, Lock, Key } from "lucide-react";
+import { useGuildContract } from "@/hooks/useContract";
+import { EncryptedTransaction } from "@/lib/encryption";
+import { useState } from "react";
+import { useAccount } from "wagmi";
+import { toast } from "sonner";
 
 const CreateGuild = () => {
+  const { address, isConnected } = useAccount();
+  const { createGuild, isLoading } = useGuildContract();
+  
+  const [formData, setFormData] = useState({
+    name: '',
+    description: '',
+    targetAmount: '',
+    emblem: '',
+    privacy: 'public',
+    skillLevel: 'beginner'
+  });
+  
+  const [isEncrypting, setIsEncrypting] = useState(false);
+
   const guildEmblems = [
     { icon: "🐉", name: "Dragon" },
     { icon: "🗡️", name: "Sword" },
@@ -25,6 +44,60 @@ const CreateGuild = () => {
     { icon: "⚡", name: "Thunder" },
     { icon: "🔱", name: "Trident" }
   ];
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!isConnected) {
+      toast.error("Please connect your wallet first");
+      return;
+    }
+
+    if (!formData.name || !formData.description || !formData.targetAmount) {
+      toast.error("Please fill in all required fields");
+      return;
+    }
+
+    try {
+      setIsEncrypting(true);
+      toast.loading("Encrypting guild data...", { id: "encrypt" });
+
+      // Create encrypted guild data
+      const encryptedGuild = await EncryptedTransaction.createEncryptedGuild(
+        formData.name,
+        formData.description,
+        BigInt(formData.targetAmount)
+      );
+
+      toast.loading("Creating guild on blockchain...", { id: "create" });
+
+      // Create guild on blockchain
+      const hash = await createGuild(
+        formData.name,
+        formData.description,
+        BigInt(formData.targetAmount)
+      );
+
+      toast.success("Guild created successfully!", { id: "create" });
+      toast.success(`Transaction hash: ${hash}`, { duration: 5000 });
+      
+      // Reset form
+      setFormData({
+        name: '',
+        description: '',
+        targetAmount: '',
+        emblem: '',
+        privacy: 'public',
+        skillLevel: 'beginner'
+      });
+
+    } catch (error) {
+      console.error('Error creating guild:', error);
+      toast.error("Failed to create guild. Please try again.", { id: "create" });
+    } finally {
+      setIsEncrypting(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -50,20 +123,24 @@ const CreateGuild = () => {
               <CardContent className="space-y-4">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="guild-name">Guild Name</Label>
+                    <Label htmlFor="guild-name">Guild Name *</Label>
                     <Input 
                       id="guild-name" 
                       placeholder="Enter guild name"
                       className="bg-guild-shadow/50 border-guild-stone"
+                      value={formData.name}
+                      onChange={(e) => setFormData({...formData, name: e.target.value})}
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="guild-tag">Guild Tag</Label>
+                    <Label htmlFor="target-amount">Target Amount (ETH) *</Label>
                     <Input 
-                      id="guild-tag" 
-                      placeholder="[TAG] (3-5 chars)"
+                      id="target-amount" 
+                      type="number"
+                      placeholder="0.0"
                       className="bg-guild-shadow/50 border-guild-stone"
-                      maxLength={5}
+                      value={formData.targetAmount}
+                      onChange={(e) => setFormData({...formData, targetAmount: e.target.value})}
                     />
                   </div>
                 </div>
@@ -83,11 +160,13 @@ const CreateGuild = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="description">Guild Description</Label>
+                  <Label htmlFor="description">Guild Description *</Label>
                   <Textarea 
                     id="description"
                     placeholder="Describe your guild's purpose and values..."
                     className="bg-guild-shadow/50 border-guild-stone min-h-[100px]"
+                    value={formData.description}
+                    onChange={(e) => setFormData({...formData, description: e.target.value})}
                   />
                 </div>
 
@@ -272,9 +351,30 @@ const CreateGuild = () => {
                   </div>
                 </div>
 
-                <Button className="w-full bg-gradient-primary text-primary-foreground font-semibold">
-                  Create Guild
-                </Button>
+                <form onSubmit={handleSubmit}>
+                  <Button 
+                    type="submit"
+                    className="w-full bg-gradient-primary text-primary-foreground font-semibold"
+                    disabled={isLoading || isEncrypting || !isConnected}
+                  >
+                    {isEncrypting ? (
+                      <>
+                        <Lock className="w-4 h-4 mr-2 animate-spin" />
+                        Encrypting Data...
+                      </>
+                    ) : isLoading ? (
+                      <>
+                        <Key className="w-4 h-4 mr-2 animate-spin" />
+                        Creating Guild...
+                      </>
+                    ) : (
+                      <>
+                        <Shield className="w-4 h-4 mr-2" />
+                        Create Encrypted Guild
+                      </>
+                    )}
+                  </Button>
+                </form>
               </CardContent>
             </Card>
 

@@ -1,125 +1,135 @@
-# Guild Tactics Vault
+# ⚔️ Guild Tactics Vault
 
-A decentralized gaming platform built with FHE (Fully Homomorphic Encryption) technology, enabling secure and private guild battles and tournaments on the blockchain.
+> **The Ultimate Encrypted Gaming Experience**  
+> Where strategy meets privacy in the blockchain realm
 
-## Features
+![Guild Tactics Vault](https://img.shields.io/badge/Status-Live-brightgreen) ![FHE](https://img.shields.io/badge/Encryption-FHE-blue) ![Ethereum](https://img.shields.io/badge/Network-Sepolia-orange)
 
-- **Secure Guild Management**: Create and manage gaming guilds with encrypted data
-- **Private Tournaments**: Participate in tournaments with encrypted skill levels and contributions
-- **FHE-Protected Battles**: Battle other guilds with fully encrypted tactics and strategies
-- **Reputation System**: Build reputation through encrypted contributions and victories
-- **Wallet Integration**: Connect with popular wallets like Rainbow, MetaMask, and more
+## 🎮 What is Guild Tactics Vault?
 
-## Technology Stack
+Guild Tactics Vault is a revolutionary gaming platform that combines the thrill of competitive guild battles with cutting-edge privacy technology. Built on **Fully Homomorphic Encryption (FHE)**, it ensures your strategies, contributions, and reputation remain completely private while still being verifiable on-chain.
 
-- **Frontend**: React, TypeScript, Vite, Tailwind CSS
-- **Blockchain**: Ethereum Sepolia Testnet
-- **Wallet**: RainbowKit, Wagmi, Viem
-- **Encryption**: FHE (Fully Homomorphic Encryption) via Zama
-- **UI Components**: shadcn/ui, Radix UI
+### 🌟 Key Features
 
-## Getting Started
+- 🛡️ **Encrypted Guild Management** - Create and manage guilds with complete data privacy
+- 🏆 **Private Tournaments** - Compete in tournaments where your skill level is encrypted
+- ⚔️ **FHE-Protected Battles** - Battle other guilds with encrypted tactics and strategies  
+- 📊 **Anonymous Reputation** - Build reputation through encrypted contributions
+- 🔗 **Multi-Wallet Support** - Connect with Rainbow, MetaMask, and other popular wallets
+
+## 🚀 Quick Start
 
 ### Prerequisites
-
-- Node.js 18+ installed
-- A Web3 wallet (MetaMask, Rainbow, etc.)
-- Sepolia ETH for gas fees
+- Node.js 18+ 
+- Web3 wallet (MetaMask, Rainbow, etc.)
+- Testnet ETH for gas fees
 
 ### Installation
 
-1. Clone the repository:
 ```bash
+# Clone the repository
 git clone https://github.com/lemoncookie456/guild-tactics-vault.git
 cd guild-tactics-vault
-```
 
-2. Install dependencies:
-```bash
+# Install dependencies
 npm install
-```
 
-3. Set up environment variables:
-```bash
-cp .env.example .env.local
-```
-
-4. Start the development server:
-```bash
+# Start development server
 npm run dev
 ```
 
-### Environment Configuration
+### Environment Setup
 
-Create a `.env.local` file with the following variables:
+Create a `.env.local` file:
 
 ```env
-# Chain Configuration
+# Network Configuration
 VITE_CHAIN_ID=11155111
-VITE_RPC_URL=https://sepolia.infura.io/v3/b18fb7e6ca7045ac83c41157ab93f990
+VITE_RPC_URL=your_rpc_url_here
 
-# Wallet Connect Configuration
-VITE_WALLET_CONNECT_PROJECT_ID=2ec9743d0d0cd7fb94dee1a7e6d33475
+# Wallet Configuration  
+VITE_WALLET_CONNECT_PROJECT_ID=your_project_id_here
 
-# Contract Addresses
-VITE_GUILD_TACTICS_VAULT_ADDRESS=0x0000000000000000000000000000000000000000
+# Contract Address
+VITE_GUILD_TACTICS_VAULT_ADDRESS=your_contract_address_here
 ```
 
-## Smart Contract
+## 🔐 Smart Contract Architecture
 
-The project includes a fully homomorphic encryption-enabled smart contract that protects:
+Our FHE-enabled smart contract provides unprecedented privacy protection:
 
-- Guild membership and contributions
-- Tournament participation and results
-- Battle tactics and strategies
-- Player reputation and skill levels
+- **Encrypted Guild Data** - Membership and contributions remain private
+- **Private Tournament Results** - Participation and outcomes are encrypted
+- **Secret Battle Tactics** - Strategies are hidden until battle completion
+- **Anonymous Reputation** - Skill levels and achievements are encrypted
 
-### Contract Features
+### 🛠️ Contract Capabilities
 
-- **Encrypted Guild Management**: Create guilds with encrypted target amounts and member counts
-- **Private Member Contributions**: Contribute to guilds with encrypted amounts
-- **Secure Tournament System**: Participate in tournaments with encrypted entry fees and prizes
-- **FHE-Protected Battles**: Battle other guilds with encrypted battle points and victory conditions
-- **Reputation Tracking**: Build encrypted reputation through contributions and victories
+- **FHE Guild Creation** - Create guilds with encrypted target amounts
+- **Private Contributions** - Contribute with encrypted amounts
+- **Secure Tournaments** - Join tournaments with encrypted entry fees
+- **Encrypted Battles** - Battle with hidden tactics and encrypted results
+- **Anonymous Reputation** - Build encrypted reputation through achievements
 
-## Deployment
+## 🚀 Deployment Guide
 
-### Vercel Deployment
+### Frontend Deployment (Vercel)
 
-1. Connect your GitHub repository to Vercel
-2. Set the following environment variables in Vercel:
-   - `VITE_CHAIN_ID`: 11155111
-   - `VITE_RPC_URL`: https://sepolia.infura.io/v3/b18fb7e6ca7045ac83c41157ab93f990
-   - `VITE_WALLET_CONNECT_PROJECT_ID`: 2ec9743d0d0cd7fb94dee1a7e6d33475
-   - `VITE_GUILD_TACTICS_VAULT_ADDRESS`: [Your deployed contract address]
+1. **Connect Repository**
+   - Link your GitHub repository to Vercel
+   - Configure build settings for Vite
 
-3. Deploy the application
+2. **Environment Variables**
+   ```env
+   VITE_CHAIN_ID=11155111
+   VITE_RPC_URL=your_rpc_endpoint
+   VITE_WALLET_CONNECT_PROJECT_ID=your_project_id
+   VITE_GUILD_TACTICS_VAULT_ADDRESS=deployed_contract_address
+   ```
 
-### Contract Deployment
+3. **Deploy**
+   - Click deploy and wait for build completion
+   - Your app will be live at your Vercel domain
 
-1. Install Hardhat dependencies:
+### Smart Contract Deployment
+
 ```bash
+# Install Hardhat dependencies
 npm install --save-dev hardhat @nomicfoundation/hardhat-toolbox
-```
 
-2. Deploy the contract to Sepolia:
-```bash
+# Deploy to Sepolia testnet
 npx hardhat run scripts/deploy.js --network sepolia
+
+# Update environment variables with deployed address
 ```
 
-3. Update the contract address in your environment variables
+## 🤝 Contributing
 
-## Contributing
+We welcome contributions! Here's how to get started:
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
+1. **Fork** the repository
+2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
+3. **Commit** your changes (`git commit -m 'Add amazing feature'`)
+4. **Push** to the branch (`git push origin feature/amazing-feature`)
+5. **Open** a Pull Request
 
-## License
+## 📄 License
 
-MIT License - see LICENSE file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Support
+## 🆘 Support
 
-For support and questions, please open an issue on GitHub or contact the development team.
+- 📧 **Issues**: [GitHub Issues](https://github.com/lemoncookie456/guild-tactics-vault/issues)
+- 💬 **Discussions**: [GitHub Discussions](https://github.com/lemoncookie456/guild-tactics-vault/discussions)
+- 📖 **Documentation**: Check our [Wiki](https://github.com/lemoncookie456/guild-tactics-vault/wiki)
+
+---
+
+<div align="center">
+
+**Built with ❤️ by the Guild Tactics Vault Team**
+
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/lemoncookie456/guild-tactics-vault)
+[![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?logo=vercel)](https://guild-tactics-vault.vercel.app)
+
+</div>

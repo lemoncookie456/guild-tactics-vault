@@ -20,10 +20,10 @@ In the Vercel dashboard, go to your project settings and add the following envir
 
 ```
 VITE_CHAIN_ID=11155111
-VITE_RPC_URL=https://sepolia.infura.io/v3/b18fb7e6ca7045ac83c41157ab93f990
-VITE_WALLET_CONNECT_PROJECT_ID=2ec9743d0d0cd7fb94dee1a7e6d33475
-VITE_INFURA_API_KEY=b18fb7e6ca7045ac83c41157ab93f990
-VITE_GUILD_TACTICS_VAULT_ADDRESS=0x0000000000000000000000000000000000000000
+VITE_RPC_URL=your_rpc_endpoint_here
+VITE_WALLET_CONNECT_PROJECT_ID=your_wallet_connect_project_id
+VITE_INFURA_API_KEY=your_infura_api_key
+VITE_GUILD_TACTICS_VAULT_ADDRESS=your_deployed_contract_address
 ```
 
 ### Step 3: Build Configuration

@@ -6,7 +6,7 @@ module.exports = {
   solidity: "0.8.24",
   networks: {
     sepolia: {
-      url: "https://sepolia.infura.io/v3/b18fb7e6ca7045ac83c41157ab93f990",
+      url: process.env.RPC_URL || "your_rpc_endpoint_here",
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
       chainId: 11155111,
     },
